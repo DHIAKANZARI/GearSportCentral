@@ -18,7 +18,12 @@ try {
     error_log("Database connected successfully");
 } catch (PDOException $e) {
     error_log("Database Connection Error: " . $e->getMessage());
-    die("Database connection failed. Please check your configuration.");
+    die("Database connection failed: " . $e->getMessage());
+}
+
+// Test the connection
+try {
+    $pdo->query("SELECT 1");
 }
 
 // Start session if not already started

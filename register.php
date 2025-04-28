@@ -21,6 +21,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $error_message = 'Please fill out all fields.';
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $error_message = 'Please enter a valid email address.';
+    } elseif (!preg_match('/^[a-zA-Z0-9_]+$/', $username)) {
+        $error_message = 'Username can only contain letters, numbers, and underscores.';
     } elseif (strlen($username) < 3 || strlen($username) > 50) {
         $error_message = 'Username must be between 3 and 50 characters.';
     } elseif (strlen($password) < 6) {

@@ -34,9 +34,13 @@ function registerUser($username, $email, $password) {
     
     // Insert new user with plain text password
     try {
+        if (!$pdo) {
+            throw new PDOException("Database connection not established");
+        }
         $stmt = $pdo->prepare("INSERT INTO users (username, email, password) VALUES (?, ?, ?)");
-        $stmt->execute([$username, $email, $password]);
-        
+        if (!$stmt->execute([$username, $email, $password])) {
+            throw new PDOException("Failed to insert user");
+        }
         return [
             'status' => 'success',
             'message' => 'Registration successful! You can now log in.'

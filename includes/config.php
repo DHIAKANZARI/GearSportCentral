@@ -1,7 +1,7 @@
 
 <?php
 // Database configuration for XAMPP
-$host = 'localhost';
+$host = '127.0.0.1';
 $database = 'extremesports';
 $username = 'root';
 $password = '';

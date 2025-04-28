@@ -1,10 +1,7 @@
 
 <?php
 // Database configuration for PostgreSQL
-$host = 'localhost';
-$database = 'extremesports';
-$username = 'postgres';
-$password = '';
+$database_url = getenv('DATABASE_URL');
 
 // Enable error reporting
 ini_set('display_errors', 1);
@@ -12,8 +9,7 @@ error_reporting(E_ALL);
 
 // Establish database connection
 try {
-    $dsn = "pgsql:host=$host;dbname=$database";
-    $pdo = new PDO($dsn, $username, $password);
+    $pdo = new PDO($database_url);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
     error_log("Database connected successfully");

@@ -5,6 +5,10 @@ $error_message = '';
 $success_message = '';
 
 // Check if form is submitted
+// Enable error reporting
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Get form data
     $username = trim($_POST['username']);

@@ -10,8 +10,10 @@ $password = getenv('MYSQL_PASSWORD');
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$database", $username, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
-    die("Connection failed: " . $e->getMessage());
+    error_log("Database Connection Error: " . $e->getMessage());
+    die("Database connection failed. Please check your configuration.");
 }
 
 // Start session if not already started

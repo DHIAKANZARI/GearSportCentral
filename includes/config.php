@@ -1,9 +1,9 @@
 
 <?php
-// Database configuration for XAMPP
-$host = '127.0.0.1';
+// Database configuration for PostgreSQL
+$host = 'localhost';
 $database = 'extremesports';
-$username = 'root';
+$username = 'postgres';
 $password = '';
 
 // Enable error reporting
@@ -12,21 +12,14 @@ error_reporting(E_ALL);
 
 // Establish database connection
 try {
-    $pdo = new PDO("mysql:host=$host;dbname=$database", $username, $password);
+    $dsn = "pgsql:host=$host;dbname=$database";
+    $pdo = new PDO($dsn, $username, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
     error_log("Database connected successfully");
 } catch (PDOException $e) {
     error_log("Database Connection Error: " . $e->getMessage());
     die("Database connection failed: " . $e->getMessage());
-}
-
-// Test the connection
-try {
-    $pdo->query("SELECT 1");
-} catch (PDOException $e) {
-    error_log("Database Test Error: " . $e->getMessage());
-    die("Database test failed: " . $e->getMessage());
 }
 
 // Start session if not already started

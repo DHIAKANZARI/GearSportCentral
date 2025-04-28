@@ -24,6 +24,9 @@ try {
 // Test the connection
 try {
     $pdo->query("SELECT 1");
+} catch (PDOException $e) {
+    error_log("Database Test Error: " . $e->getMessage());
+    die("Database test failed: " . $e->getMessage());
 }
 
 // Start session if not already started

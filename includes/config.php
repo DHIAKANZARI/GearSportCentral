@@ -1,15 +1,14 @@
+
 <?php
 // Database configuration
-$host = getenv('PGHOST');
-$port = getenv('PGPORT');
-$database = getenv('PGDATABASE');
-$username = getenv('PGUSER');
-$password = getenv('PGPASSWORD');
+$host = getenv('MYSQL_HOST');
+$database = getenv('MYSQL_DATABASE');
+$username = getenv('MYSQL_USER');
+$password = getenv('MYSQL_PASSWORD');
 
 // Establish database connection
 try {
-    $dsn = "pgsql:host=$host;port=$port;dbname=$database;user=$username;password=$password";
-    $pdo = new PDO($dsn);
+    $pdo = new PDO("mysql:host=$host;dbname=$database", $username, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
     die("Connection failed: " . $e->getMessage());

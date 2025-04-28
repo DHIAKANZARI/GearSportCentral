@@ -32,13 +32,10 @@ function registerUser($username, $email, $password) {
         ];
     }
     
-    // Hash the password
-    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-    
-    // Insert new user
+    // Insert new user with plain text password
     try {
         $stmt = $pdo->prepare("INSERT INTO users (username, email, password) VALUES (?, ?, ?)");
-        $stmt->execute([$username, $email, $hashed_password]);
+        $stmt->execute([$username, $email, $password]);
         
         return [
             'status' => 'success',
@@ -83,8 +80,8 @@ function loginUser($username, $password) {
         ];
     }
     
-    // Verify password
-    if (password_verify($password, $user['password'])) {
+    // Verify plain text password
+    if ($password === $user['password']) {
         // Password is correct, start a new session
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['username'] = $user['username'];
